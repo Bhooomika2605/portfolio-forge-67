@@ -2,95 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Import FontAwesome */
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+/* Portfolio Design System - Bhoomika Surve Portfolio
+   Dark theme with teal accents and aurora effects
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Portfolio Dark Theme */
+    --background: 218 35% 10%; /* #0a192f - Dark navy */
+    --foreground: 216 33% 83%; /* #ccd6f6 - Light blue-gray */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 28% 15%; /* rgba(17, 34, 64, 0.6) - Semi-transparent dark */
+    --card-foreground: 216 33% 83%; /* #ccd6f6 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 28% 15%;
+    --popover-foreground: 216 33% 83%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 174 60% 51%; /* #2dd4bf - Teal accent */
+    --primary-foreground: 220 28% 15%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215 20.2% 65.1%; /* #cbd5e1 - Nav links */
+    --secondary-foreground: 174 60% 51%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 20.2% 65.1%;
+    --muted-foreground: 215 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 174 60% 51%; /* Teal */
+    --accent-foreground: 220 28% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 174 60% 51% / 0.1; /* Teal border with transparency */
+    --input: 174 60% 51% / 0.1;
+    --ring: 174 60% 51%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* 12px border radius for cards */
 
-    --sidebar-background: 0 0% 98%;
+    /* Aurora gradient colors */
+    --aurora-blue: 199 89% 48%; /* rgba(2,132,199,0.2) */
+    --aurora-purple: 250 50% 66%; /* rgba(139,92,246,0.15) */
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Glassmorphism card effects */
+    --glass-bg: 220 28% 15% / 0.6;
+    --glass-border: 174 60% 51% / 0.1;
+    --glass-border-hover: 174 60% 51% / 0.5;
+    --glass-shadow: 0 0 0 / 0.3;
+    --glass-glow: 174 60% 51% / 0.2;
   }
 }
 
@@ -101,5 +62,110 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Aurora Gradient Background */
+  .aurora-bg {
+    @apply fixed top-0 left-0 w-full h-screen -z-10;
+    background: radial-gradient(circle, hsl(var(--aurora-blue) / 0.2) 0%, transparent 40%),
+                radial-gradient(circle, hsl(var(--aurora-purple) / 0.15) 50%, transparent 80%);
+    animation: aurora-animation 25s ease-in-out infinite alternate;
+  }
+
+  /* Glassmorphism Card Effect */
+  .portfolio-card {
+    @apply relative overflow-hidden rounded-xl;
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(10px);
+    border: 1px solid hsl(var(--glass-border));
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .portfolio-card:hover {
+    @apply -translate-y-2.5;
+    border-color: hsl(var(--glass-border-hover));
+    box-shadow: 0 20px 30px hsl(var(--glass-shadow)), 
+                0 0 40px hsl(var(--glass-glow));
+  }
+
+  /* Navigation Link Animation */
+  .nav-link {
+    @apply relative text-secondary transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    @apply absolute bottom-0 left-1/2 h-0.5 w-0 bg-primary transition-all duration-300;
+    content: '';
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .nav-link:hover {
+    @apply text-primary;
+  }
+
+  /* Custom Button */
+  .portfolio-btn {
+    @apply border border-primary bg-transparent px-8 py-3 font-semibold text-primary transition-all duration-300 rounded-md;
+  }
+
+  .portfolio-btn:hover {
+    background-color: hsl(var(--primary) / 0.1);
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.4);
+  }
+
+  /* Section Underline */
+  .section-underline {
+    @apply mx-auto mt-2.5 h-1 w-20 rounded;
+    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--aurora-blue)));
+  }
+
+  /* Slideshow Container */
+  .slideshow-container {
+    @apply relative h-full w-full overflow-hidden rounded-lg;
+  }
+
+  .slideshow-container img {
+    @apply absolute left-0 top-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000;
+  }
+
+  .slideshow-container img.active {
+    @apply opacity-100;
+  }
+
+  /* Skill Tags */
+  .skill-tag {
+    @apply rounded-full bg-slate-700 px-3 py-1 text-sm text-primary;
+  }
+
+  /* Typewriter Cursor */
+  .typed-cursor {
+    @apply text-primary;
+    animation: blink 0.7s infinite;
+  }
+
+  /* Scroll Reveal */
+  .reveal {
+    visibility: hidden;
+  }
+}
+
+@layer utilities {
+  /* Animations */
+  @keyframes aurora-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
   }
 }
